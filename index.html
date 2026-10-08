@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ooredoo Palestine — Talk to our Virtual Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+  :root{--red:#ed1c24;--red-dark:#b3121a;--ink:#1d1d1f;--mut:#6b6b73}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font-family:'Inter','Segoe UI',Arial,sans-serif;color:var(--ink);background:#fff;overflow-x:hidden}
+  /* Ooredoo-style concentric ring backdrop */
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(1200px 700px at 85% -10%,#ff4a50 0,var(--red) 45%,var(--red-dark) 100%)}
+  .bg::before,.bg::after{content:"";position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.14)}
+  .bg::before{width:900px;height:900px;right:-280px;top:-320px;box-shadow:0 0 0 80px rgba(255,255,255,.04),0 0 0 160px rgba(255,255,255,.03)}
+  .bg::after{width:620px;height:620px;left:-260px;bottom:-300px;box-shadow:0 0 0 70px rgba(255,255,255,.04)}
+  header{position:fixed;top:0;left:50%;transform:translateX(-50%);width:min(96vw,860px);background:#fff;border-radius:0 0 16px 16px;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 6px 24px rgba(0,0,0,.12);z-index:2}
+  .logo{font-weight:700;font-size:28px;letter-spacing:-1px;color:var(--red);text-transform:lowercase;display:flex;align-items:center;gap:8px}
+  .logo i{width:30px;height:30px;border-radius:50%;border:4px solid var(--red);display:inline-block;position:relative}
+  .logo i::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--red)}
+  .tag{font-size:12px;color:var(--mut)}
+  main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:100px 16px 90px}
+  .card{background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.22);width:min(96vw,720px);padding:44px 32px;text-align:center}
+  h1{margin:0 0 6px;font-size:clamp(24px,4.5vw,36px);letter-spacing:-.5px;font-weight:700}
+  h1 span{color:var(--red)}
+  .ar{font-family:'Noto Kufi Arabic',sans-serif;direction:rtl;font-size:clamp(16px,3vw,20px);color:var(--mut);margin:0 0 6px}
+  .sub{color:var(--mut);margin:0 0 32px;font-size:15px}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:560px){.choices{grid-template-columns:1fr}}
+  .choice{border:1.5px solid #eee;border-radius:18px;padding:24px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;transition:box-shadow .2s,border-color .2s,transform .2s}
+  .choice:hover{border-color:var(--red);box-shadow:0 10px 30px rgba(237,28,36,.15);transform:translateY(-2px)}
+  .ico{width:54px;height:54px;border-radius:50%;background:#fdecec;color:var(--red);display:grid;place-items:center;font-size:24px}
+  .choice h2{margin:0;font-size:18px}
+  .choice p{margin:0 0 6px;font-size:13px;color:var(--mut);min-height:36px}
+  .callBtn{border:0;background:var(--red);color:#fff;border-radius:999px;padding:13px 24px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:inherit;transition:background .2s}
+  .callBtn:hover{background:var(--red-dark)}
+  footer{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:#fff;border-radius:16px 16px 0 0;padding:10px 20px;font-size:11px;color:var(--mut);z-index:2;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<header>
+  <div class="logo"><i></i>ooredoo</div>
+  <div class="tag">Palestine · فلسطين</div>
+</header>
+
+<main>
+  <section class="card">
+    <h1>Welcome to <span>Ooredoo Palestine</span></h1>
+    <p class="ar">أهلاً بكم في أوريدو فلسطين</p>
+    <p class="sub">Talk to our new virtual assistant — choose a conversation below.</p>
+
+    <div class="choices">
+      <div class="choice">
+        <div class="ico"><i class="bi bi-receipt"></i></div>
+        <h2>Payment Reminder</h2>
+        <p>A friendly call about your upcoming or overdue bill.</p>
+        <button id="callPayment" class="click2CallBtn callBtn" data-action="call" data-ui="phone">
+          <i class="bi bi-telephone"></i> Click to Call
+        </button>
+      </div>
+      <div class="choice">
+        <div class="ico"><i class="bi bi-stars"></i></div>
+        <h2>Retention Offer</h2>
+        <p>A personalized offer made just for you.</p>
+        <button id="callRetention" class="click2CallBtn callBtn" data-action="call" data-ui="phone">
+          <i class="bi bi-telephone"></i> Click to Call
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>&copy; 2026 Ooredoo Palestine · Powered by Kore.ai</footer>
+
+<script>
+/* Click-to-Call config — same SBC / domain for both; only the bot phone number differs */
+const C2C = {
+  ui: "phone",
+  addresses: ["wss://savg-cusprd-sbc1.kore.ai:8443"],
+  domain: "ablprod.korevg.kore.ai",
+  ctcContext: "0",
+  payment:   { botPhoneNumber: "+14702859940", botName: "Payments" },
+  retention: { botPhoneNumber: "+14245003265", botName: "Retention" }
+};
+function applyC2C(btn, bot){
+  btn.setAttribute('data-ui', C2C.ui);
+  btn.setAttribute('data-addresses', C2C.addresses);
+  btn.setAttribute('data-domain', C2C.domain);
+  btn.setAttribute('data-botPhoneNumber', bot.botPhoneNumber);
+  btn.setAttribute('data-botId', bot.botPhoneNumber);
+  btn.setAttribute('data-botName', bot.botName);
+  btn.setAttribute('data-ctcContext', C2C.ctcContext);
+}
+window.addEventListener('DOMContentLoaded', () => {
+  applyC2C(document.getElementById('callPayment'), C2C.payment);
+  applyC2C(document.getElementById('callRetention'), C2C.retention);
+});
+</script>
+<script src="https://demo.kore.ai/demo-sandbox/library/ac_webrtc.min.js" defer></script>
+<script src="https://demo.kore.ai/demo-sandbox/library/click2call.umd.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  let tries = 0;
+  const t = setInterval(() => {
+    if (window.SavgClick2Call?.autoWireCallButtons) {
+      window.SavgClick2Call.autoWireCallButtons({ allowUISelection: true });
+      clearInterval(t);
+    } else if (++tries >= 50) { console.error('[Click2Call] SDK failed to load'); clearInterval(t); }
+  }, 100);
+});
+</script>
+</body>
+</html>
